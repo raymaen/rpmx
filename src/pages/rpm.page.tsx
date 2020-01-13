@@ -14,8 +14,8 @@ import { AppState } from '../store';
 import { connect } from 'react-redux';
 import AddItemDialog from '../components/AddItemDialog';
 
-export const sanitize = (input: any) =>
-  sanitizeHtml(input, { allowedTags: [] });
+export const sanitizeTitle = (input: any) =>
+  sanitizeHtml(input, { allowedTags: ['div', 'br'] });
 
 interface Props extends RouteComponentProps<{ id: any }> {
   rpm: Rpm;
@@ -41,7 +41,7 @@ const Index: React.FC<Props> = ({
       <ContentEditable
         html={`<b>${title}</b>`} // innerHTML of the editable div
         disabled={false} // use true to disable edition
-        onChange={e => editTitle(id, e.target.value)} // handle innerHTML change
+        onChange={e => editTitle(id, sanitizeTitle(e.target.value))} // handle innerHTML change
         style={{
           fontSize: 28
         }}

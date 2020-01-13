@@ -15,6 +15,10 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { selectRpm } from '../store/global-settings/global-settings.actions';
+import sanitizeHtml from 'sanitize-html';
+
+export const sanitize = (input: any) =>
+  sanitizeHtml(input, { allowedTags: [] });
 
 const useStyles = makeStyles({
   card: {
@@ -66,13 +70,13 @@ const IndexPage: React.FC<Props> = ({
             }
             title={
               <Typography variant="h5" component="h2">
-                {rpm.title}
+                {sanitize(rpm.title)}
               </Typography>
             }
           />
           <CardContent>
             <Typography variant="body2" component="p">
-              {rpm.description}
+              {sanitize(rpm.description)}
             </Typography>
           </CardContent>
           <CardActions>
